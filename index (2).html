@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Adam Khechine · Estudiante de Comercio Internacional en Alicante. Atención al cliente, administración y logística.">
+<title>Adam Khechine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: light beige page, sky-blue hero with a rotating customs stamp, sand marquee band, hard-shadow cards.
+   Palette: beige (page), sky blue + mid blue (structure), sand (warm accent), navy ink. */
+:root {
+  --bg: #F4ECDC;
+  --surface: #FFFBF2;
+  --ink: #1C2B4B;
+  --muted: #55617F;
+  --edge: #1C2B4B;
+  --blue: #7BA5EE;
+  --sky: #C4DAF7;
+  --sand: #E8D5AE;
+  --deep: #2F5FCB;
+  --warm-ink: #8E5F25;
+  --on-warm: #1C2B4B;
+  --hero: #CFE1F8;
+  --on-hero: #1C2B4B;
+  --hero-accent: #2F5FCB;
+  --line: #DCD0B8;
+  --shadow: 6px 6px 0 var(--edge);
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141A2C; --surface: #1E2640; --ink: #EAEFFB; --muted: #A9B3D1; --edge: #EAEFFB;
+    --deep: #8DB2F5; --warm-ink: #E8D5AE; --hero: #25396B; --on-hero: #EAEFFB; --hero-accent: #C4DAF7; --line: #2E3859;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141A2C; --surface: #1E2640; --ink: #EAEFFB; --muted: #A9B3D1; --edge: #EAEFFB;
+  --deep: #8DB2F5; --warm-ink: #E8D5AE; --hero: #25396B; --on-hero: #EAEFFB; --hero-accent: #C4DAF7; --line: #2E3859;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  overflow-x: hidden;
+}
+.wrap { max-width: 1040px; margin-inline: auto; padding-inline: 20px; }
+:focus-visible { outline: 3px solid var(--deep); outline-offset: 3px; }
+
+/* Hero */
+.hero { background: var(--hero); color: var(--on-hero); position: relative; overflow: hidden; border-bottom: 3px solid var(--edge); }
+.hero .wrap { position: relative; padding-block: 56px 64px; z-index: 1; }
+.eyebrow { font-family: var(--font-mono); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; margin: 0 0 20px; opacity: .85; }
+.hi { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); margin: 0 0 4px; letter-spacing: -.01em; }
+.hi span { display: inline-block; min-width: 3.2ch; border-bottom: 4px solid var(--hero-accent); }
+h1 {
+  font-family: var(--font-display); font-weight: 800; font-size: clamp(3.6rem, 15vw, 10rem);
+  line-height: .86; letter-spacing: -.045em; margin: 0 0 32px;
+}
+h1 span { color: var(--hero-accent); display: block; }
+.lead { font-size: clamp(1.1rem, 2.2vw, 1.4rem); line-height: 1.5; max-width: 40rem; margin: 0 0 32px; }
+.status {
+  display: inline-block; padding: 10px 18px; background: var(--sand); color: var(--on-warm);
+  font-family: var(--font-mono); font-size: 14px; font-weight: 500; border: 2px solid var(--on-warm);
+  box-shadow: 5px 5px 0 var(--on-warm); transform: rotate(-1.5deg);
+}
+.blob { position: absolute; border-radius: 50%; pointer-events: none; }
+.blob.a { width: 340px; height: 340px; background: var(--sand); right: -90px; top: -110px; opacity: .9; }
+.blob.b { width: 190px; height: 190px; background: var(--blue); left: -70px; bottom: -90px; opacity: .8; }
+.stamp { position: absolute; right: 24px; bottom: 30px; width: 190px; height: 190px; color: var(--on-hero); pointer-events: none; }
+.stamp svg { width: 100%; height: 100%; display: block; }
+.stamp .ring { transform-origin: 50% 50%; animation: spin 26s linear infinite; }
+.stamp text { font-family: var(--font-mono); font-size: 13.5px; font-weight: 500; letter-spacing: .14em; fill: currentColor; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 720px) { .stamp { display: none; } .blob.a { width: 220px; height: 220px; right: -80px; top: -70px; } }
+
+/* Marquee */
+.band { background: var(--sand); color: var(--on-warm); border-bottom: 3px solid var(--edge); overflow: hidden; }
+.band-track { display: flex; width: max-content; animation: slide 32s linear infinite; }
+.band-track p { margin: 0; padding: 12px 0; white-space: nowrap; font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; letter-spacing: -.01em; }
+.band-track b { color: #2F5FCB; margin-inline: 18px; font-weight: 800; }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; padding-block: 44px 8px; }
+.stat { background: var(--surface); border: 3px solid var(--edge); box-shadow: var(--shadow); padding: 18px 20px; }
+.stat strong { display: block; font-family: var(--font-display); font-weight: 800; font-size: 3.4rem; line-height: 1; letter-spacing: -.04em; }
+.stat:nth-child(1) strong { color: var(--deep); }
+.stat:nth-child(2) strong { color: var(--warm-ink); }
+.stat:nth-child(3) strong { color: var(--ink); }
+.stat span { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+/* Sections */
+section { padding-block: 56px 8px; }
+h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.2rem, 7vw, 4rem); letter-spacing: -.035em; line-height: 1; margin: 0 0 28px; }
+h2::after { content: ""; display: block; width: 84px; height: 10px; background: var(--sand); border: 2px solid var(--edge); margin-top: 14px; }
+#educacion h2::after, #tiempo-libre h2::after { background: var(--sky); }
+#habilidades h2::after { background: var(--blue); }
+h2 + .sub { margin-top: -10px; }
+.sub { font-family: var(--font-mono); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+.sub.second { margin-top: 40px; }
+
+/* Timeline */
+.tl-scroll { overflow-x: auto; border: 3px solid var(--edge); background: var(--surface); box-shadow: var(--shadow); }
+.tl { min-width: 660px; padding: 30px 18px 18px; }
+.tl-axis { position: relative; height: 22px; margin-left: 78px; border-bottom: 2px solid var(--edge); }
+.tl-axis span { position: absolute; top: 0; transform: translateX(-50%); font-family: var(--font-mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tl-row { display: grid; grid-template-columns: 78px minmax(0, 1fr); align-items: center; margin-top: 8px; }
+.tl-row > b { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tl-track { position: relative; height: 34px; background-image: linear-gradient(to right, var(--line) 1px, transparent 1px); background-size: 12.5% 100%; }
+.bar {
+  position: absolute; top: 2px; bottom: 2px; padding-inline: 8px; display: flex; align-items: center;
+  font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border: 2px solid var(--edge); color: var(--on-warm);
+}
+.bar.study { background: var(--sky); }
+.bar.w1, .bar.w3 { background: var(--blue); }
+.bar.w2 { background: var(--sand); }
+.now { position: absolute; top: 0; bottom: 0; width: 0; border-left: 2px dashed var(--ink); }
+.now::after { content: "hoy"; position: absolute; top: -24px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 10px; background: var(--ink); color: var(--bg); padding: 1px 6px; }
+.tl-note { margin: 16px 0 0; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+
+/* Experience + education cards */
+.cards { display: grid; gap: 28px; }
+.card { background: var(--surface); border: 3px solid var(--edge); box-shadow: var(--shadow); min-width: 0; }
+.card header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; padding: 12px 20px; border-bottom: 3px solid var(--edge); font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--on-warm); }
+.card.c1 header, .card.e1 header { background: var(--blue); }
+.card.c2 header, .card.e3 header { background: var(--sand); }
+.card.c3 header, .card.e2 header { background: var(--sky); }
+.card .in { padding: 20px 20px 24px; }
+h3 { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 3.6vw, 2.1rem); line-height: 1.08; letter-spacing: -.025em; margin: 0 0 4px; text-wrap: balance; }
+.org { margin: 0; font-weight: 600; color: var(--muted); }
+ul.plain { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 7px; }
+ul.plain li { position: relative; padding-left: 26px; max-width: 44rem; }
+ul.plain li::before { content: ""; position: absolute; left: 0; top: .5em; width: 11px; height: 11px; background: var(--deep); transform: rotate(45deg); }
+.edu { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+
+/* Skills with examples */
+.skills { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+.skills li { border: 3px solid var(--edge); box-shadow: 4px 4px 0 var(--edge); padding: 14px 16px 16px; color: var(--on-warm); min-width: 0; }
+.skills.tech li:nth-child(3n+1) { background: var(--sky); }
+.skills.tech li:nth-child(3n+2) { background: var(--sand); }
+.skills.tech li:nth-child(3n) { background: var(--blue); }
+.skills.soft li:nth-child(3n+1) { background: var(--sand); }
+.skills.soft li:nth-child(3n+2) { background: var(--blue); }
+.skills.soft li:nth-child(3n) { background: var(--sky); }
+.skills strong { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; letter-spacing: -.015em; line-height: 1.15; margin-bottom: 4px; }
+.skills span { font-size: 14.5px; line-height: 1.45; }
+
+/* Languages */
+.langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; list-style: none; margin: 0; padding: 0; }
+.langs li { border: 3px solid var(--edge); box-shadow: var(--shadow); padding: 18px 18px 16px; display: grid; gap: 2px; color: var(--on-warm); min-width: 0; }
+.langs li:nth-child(1) { background: var(--sand); }
+.langs li:nth-child(2) { background: var(--blue); }
+.langs li:nth-child(3) { background: var(--sky); }
+.langs li:nth-child(4) { background: var(--surface); color: var(--ink); }
+.langs .hello { font-family: var(--font-display); font-weight: 800; font-size: 3.2rem; line-height: 1; letter-spacing: -.03em; }
+.langs .name { font-weight: 600; margin-top: 8px; }
+.langs .lvl { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+.langs .dots { display: flex; gap: 4px; margin-top: 10px; }
+.langs .dots i { width: 24px; height: 8px; background: currentColor; }
+.langs .dots i.off { opacity: .25; }
+
+/* Free time */
+.free-lead { font-size: clamp(1.1rem, 2.2vw, 1.3rem); max-width: 40rem; margin: 0 0 24px; }
+.free { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 20px; }
+.free li { border: 3px solid var(--edge); box-shadow: var(--shadow); padding: 18px; color: var(--on-warm); min-width: 0; display: grid; gap: 6px; align-content: start; }
+.free li:nth-child(1) { background: var(--sky); }
+.free li:nth-child(2) { background: var(--sand); }
+.free li:nth-child(3) { background: var(--blue); }
+.free li:nth-child(4) { background: var(--surface); color: var(--ink); }
+.free b { font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; line-height: 1.05; letter-spacing: -.03em; }
+.free small { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+
+/* Contact */
+.contact-block { margin-top: 64px; background: var(--hero); color: var(--on-hero); border-block: 3px solid var(--edge); }
+.contact-block .wrap { padding-block: 56px 64px; }
+.contact-block h2::after { background: var(--sand); }
+.contact { display: grid; gap: 14px; max-width: 40rem; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 14px 18px; background: var(--surface); color: var(--ink); border: 3px solid var(--edge); box-shadow: 5px 5px 0 var(--edge); }
+.row small { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.row span.v { overflow-wrap: anywhere; font-weight: 600; font-size: 1.15rem; user-select: all; }
+button.copy {
+  font: inherit; font-family: var(--font-mono); font-size: 12px; font-weight: 500; cursor: pointer;
+  padding: 10px 14px; background: var(--sand); color: var(--on-warm); border: 2px solid var(--on-warm);
+}
+button.copy:hover { background: var(--sky); }
+.foot { padding-block: 20px; background: var(--ink); color: var(--bg); font-family: var(--font-mono); font-size: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp .ring, .band-track { animation: none; }
+  .band { overflow-x: auto; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card, .stat, .skills li, .langs li, .free li { transition: transform .15s ease, box-shadow .15s ease; }
+  .card:hover, .stat:hover, .langs li:hover, .free li:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--edge); }
+  .skills li:hover { transform: translate(-2px, -2px) rotate(-1deg); box-shadow: 6px 6px 0 var(--edge); }
+}
+</style>
+
+</head>
+<body>
+<header class="hero">
+  <div class="blob a" aria-hidden="true"></div>
+  <div class="blob b" aria-hidden="true"></div>
+  <div class="stamp" aria-hidden="true">
+    <svg viewBox="0 0 200 200">
+      <defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+      <g class="ring"><text><textPath href="#circ">COMERCIO INTERNACIONAL · ALICANTE · ESPAÑA · </textPath></text></g>
+      <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" stroke-width="2"/>
+      <text x="100" y="96" text-anchor="middle" style="font-size:30px;font-weight:500;letter-spacing:0">4</text>
+      <text x="100" y="118" text-anchor="middle" style="font-size:11px;letter-spacing:.12em">IDIOMAS</text>
+    </svg>
+  </div>
+  <div class="wrap">
+    <p class="eyebrow">Alicante, España · Grado Superior en Comercio Internacional</p>
+    <p class="hi"><span id="hi" lang="es">Hola</span>, soy</p>
+    <h1>Adam <span>Khechine</span></h1>
+    <p class="lead">Estudio segundo año de Comercio Internacional. Soy resolutivo, organizado y rindo bien bajo presión. He trabajado en atención al cliente, administración, almacén y ventas por cuenta propia, y hablo cuatro idiomas con clientes de todo tipo.</p>
+    <span class="status">Busco hacer prácticas en vuestra empresa</span>
+  </div>
+</header>
+
+<div class="band" aria-hidden="true">
+  <div class="band-track">
+    <p>Atención al cliente<b>✦</b>Administración<b>✦</b>Logística<b>✦</b>Ventas<b>✦</b>Español · Français · العربية · English<b>✦</b>Comercio internacional<b>✦</b></p>
+    <p>Atención al cliente<b>✦</b>Administración<b>✦</b>Logística<b>✦</b>Ventas<b>✦</b>Español · Français · العربية · English<b>✦</b>Comercio internacional<b>✦</b></p>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="stats">
+    <div class="stat"><strong>4</strong><span>idiomas · 3 nativos</span></div>
+    <div class="stat"><strong>3</strong><span>experiencias laborales</span></div>
+    <div class="stat"><strong>2023</strong><span>vendiendo por mi cuenta</span></div>
+  </div>
+
+  <section id="trayectoria">
+    <h2>Trayectoria</h2>
+    <div class="tl-scroll">
+      <div class="tl" role="img" aria-label="Línea de tiempo de 2019 a hoy. Estudios: ESO 2019 a 2023, Grado Medio 2023 a 2024, Grado Superior desde 2025. Trabajo: reselling desde 2023, Carrefour 2023 a 2024, SEAT CUPRA de marzo 2025 a junio 2026.">
+        <div class="tl-axis" aria-hidden="true">
+          <span style="left:0%">2019</span><span style="left:12.5%">2020</span><span style="left:25%">2021</span><span style="left:37.5%">2022</span><span style="left:50%">2023</span><span style="left:62.5%">2024</span><span style="left:75%">2025</span><span style="left:87.5%">2026</span>
+        </div>
+        <div class="tl-row" aria-hidden="true"><b>Estudios</b>
+          <div class="tl-track">
+            <div class="bar study" style="left:0%;width:50%" title="ESO · IES Leonardo Da Vinci · 2019–2023">ESO</div>
+            <div class="bar study" style="left:50%;width:25%" title="Grado Medio · IES Doctor Balmis · 2023–2024">Grado Medio</div>
+            <div class="bar study" style="left:75%;width:22.1%" title="Grado Superior · IES Radio Exterior · 2025–hoy">Grado Superior</div>
+            <div class="now" style="left:97.1%"></div>
+          </div>
+        </div>
+        <div class="tl-row" aria-hidden="true"><b>Trabajo</b>
+          <div class="tl-track">
+            <div class="bar w1" style="left:50%;width:47.1%" title="Vendedor autónomo · 2023–hoy">Reselling · por cuenta propia</div>
+            <div class="now" style="left:97.1%"></div>
+          </div>
+        </div>
+        <div class="tl-row" aria-hidden="true"><b></b>
+          <div class="tl-track">
+            <div class="bar w2" style="left:50%;width:25%" title="Carrefour · Operario de almacén · 2023–2024">Carrefour · almacén</div>
+            <div class="bar w3" style="left:77%;width:16.6%" title="SEAT CUPRA Sala Rodríguez · marzo 2025 – junio 2026">SEAT CUPRA</div>
+            <div class="now" style="left:97.1%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="tl-note">Estudio y trabajo a la vez desde 2023.</p>
+  </section>
+
+  <section id="experiencia">
+    <h2>Experiencia</h2>
+    <div class="cards">
+      <article class="card c1">
+        <header><span>Marzo 2025 – Junio 2026</span><span>Administración</span></header>
+        <div class="in">
+          <h3>Administrativo</h3>
+          <p class="org">SEAT CUPRA Automóviles Sala Rodríguez</p>
+          <ul class="plain">
+            <li>Recepción y atención directa a clientes.</li>
+            <li>Coordinación de la comunicación interna y externa.</li>
+            <li>Organización del área de recepción.</li>
+            <li>Atención multilingüe en español, francés, árabe e inglés.</li>
+            <li>Gestión de documentación administrativa y procedimientos internos.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card c2">
+        <header><span>2023 – 2024</span><span>Logística</span></header>
+        <div class="in">
+          <h3>Operario de almacén</h3>
+          <p class="org">Carrefour</p>
+          <ul class="plain">
+            <li>Recepción, clasificación y ubicación de mercancía.</li>
+            <li>Preparación de pedidos y reposición en tienda.</li>
+            <li>Manejo de transpaleta y herramientas básicas de almacén.</li>
+            <li>Control de stock e inventario.</li>
+            <li>Organización del almacén y cumplimiento de las normas de seguridad.</li>
+            <li>Trabajo bajo presión en campañas y picos de demanda.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card c3">
+        <header><span>Enero 2023 – Actualidad</span><span>Por cuenta propia</span></header>
+        <div class="in">
+          <h3>Vendedor autónomo</h3>
+          <p class="org">Reselling de zapatillas y ropa</p>
+          <ul class="plain">
+            <li>Compra y venta de zapatillas y ropa de marcas reconocidas.</li>
+            <li>Gestión de inventario y precios, con análisis de mercado.</li>
+            <li>Atención al cliente en cuatro idiomas.</li>
+            <li>Negociación con compradores y proveedores.</li>
+            <li>Organización de envíos, devoluciones y logística.</li>
+            <li>Creación de anuncios en plataformas digitales.</li>
+            <li>Control de ingresos, gastos y beneficios.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="educacion">
+    <h2>Educación</h2>
+    <div class="edu">
+      <article class="card e1">
+        <header><span>2025 – Actualmente</span></header>
+        <div class="in"><h3>Grado Superior en Comercio Internacional</h3><p class="org">IES Radio Exterior</p></div>
+      </article>
+      <article class="card e2">
+        <header><span>Enero 2023 – Diciembre 2024</span></header>
+        <div class="in"><h3>Grado Medio en Actividades Comerciales</h3><p class="org">IES Doctor Balmis</p></div>
+      </article>
+      <article class="card e3">
+        <header><span>2019 – 2023</span></header>
+        <div class="in"><h3>Educación Secundaria Obligatoria</h3><p class="org">IES Leonardo Da Vinci</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="habilidades">
+    <h2>Habilidades</h2>
+    <p class="sub">Técnicas</p>
+    <ul class="skills tech">
+      <li><strong>Atención al cliente</strong><span>Recepción de clientes en SEAT CUPRA y trato directo con compradores en mi negocio de reselling.</span></li>
+      <li><strong>Gestión administrativa</strong><span>Documentación y procedimientos internos en el concesionario.</span></li>
+      <li><strong>Organización de recepción</strong><span>Organicé el área de recepción y la comunicación interna y externa.</span></li>
+      <li><strong>Comunicación multilingüe</strong><span>Atiendo a clientes en español, francés, árabe e inglés.</span></li>
+      <li><strong>Ventas y negociación</strong><span>Negocio precios con compradores y proveedores en mi reselling.</span></li>
+      <li><strong>Paquete Office</strong><span>Word, Excel y PowerPoint.</span></li>
+      <li><strong>Trabajo bajo presión</strong><span>Campañas y picos de demanda en el almacén de Carrefour.</span></li>
+      <li><strong>Resolución de problemas</strong><span>Gestión de envíos y devoluciones en mi negocio.</span></li>
+      <li><strong>Logística básica y almacén</strong><span>Transpaleta, control de stock e inventario en Carrefour.</span></li>
+    </ul>
+    <p class="sub second">Blandas</p>
+    <ul class="skills soft">
+      <li><strong>Resolutivo</strong><span>Busco la solución y la aplico, sea un envío perdido o un cliente con prisa.</span></li>
+      <li><strong>Organizado</strong><span>Llevo inventario, precios y gastos de mi negocio al día.</span></li>
+      <li><strong>Autonomía</strong><span>Llevo mi propio negocio desde 2023 mientras estudio.</span></li>
+      <li><strong>Trabajo en equipo</strong><span>Coordinación interna en SEAT CUPRA y trabajo en equipo en el almacén.</span></li>
+      <li><strong>Adaptación a distintas culturas</strong><span>Trato con clientes de perfiles y orígenes muy diversos.</span></li>
+      <li><strong>Responsabilidad</strong><span>Cumplo normas de seguridad y controlo ingresos, gastos y stock.</span></li>
+    </ul>
+  </section>
+
+  <section id="idiomas">
+    <h2>Idiomas</h2>
+    <ul class="langs">
+      <li><span class="hello" lang="es">Hola</span><span class="name">Español</span><span class="lvl">Nativo</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span></li>
+      <li><span class="hello" lang="fr">Salut</span><span class="name">Français</span><span class="lvl">Nativo</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span></li>
+      <li><span class="hello" lang="ar" dir="rtl">مرحبا</span><span class="name">العربية</span><span class="lvl">Nativo</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span></li>
+      <li><span class="hello" lang="en">Hello</span><span class="name">English</span><span class="lvl">Avanzado</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i class="off"></i></span></li>
+    </ul>
+  </section>
+
+  <section id="tiempo-libre">
+    <h2>Tiempo libre</h2>
+    <p class="free-lead">Me gusta viajar y conocer nuevas culturas, y hacer deporte.</p>
+    <ul class="free">
+      <li><b>Viajar</b><small>Conocer nuevas culturas</small></li>
+      <li><b>Ciclismo</b><small>Deporte</small></li>
+      <li><b>Fútbol</b><small>Deporte</small></li>
+      <li><b>Boxeo</b><small>Deporte</small></li>
+    </ul>
+  </section>
+</main>
+
+<div class="contact-block" id="contacto">
+  <div class="wrap">
+    <h2>Hablemos</h2>
+    <div class="contact">
+      <div class="row"><div><small>Correo</small><span class="v" id="v-mail">06aadaamm@gmail.com</span></div><button class="copy" type="button" data-target="v-mail">Copiar</button></div>
+      <div class="row"><div><small>Teléfono</small><span class="v" id="v-tel">+34 632 216 783</span></div><button class="copy" type="button" data-target="v-tel">Copiar</button></div>
+      <div class="row"><div><small>Ubicación</small><span class="v">Alicante, España · 03011</span></div><span></span></div>
+    </div>
+  </div>
+</div>
+<footer class="foot"><div class="wrap">Adam Khechine · Alicante</div></footer>
+
+<script>
+document.querySelectorAll('button.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var el = document.getElementById(btn.dataset.target);
+    var text = el.textContent.trim();
+    function done() { btn.textContent = 'Copiado'; setTimeout(function () { btn.textContent = 'Copiar'; }, 1400); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Seleccionado'; setTimeout(function () { btn.textContent = 'Copiar'; }, 1400);
+    }
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+  });
+});
+(function () {
+  var el = document.getElementById('hi');
+  if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var words = [['Hola', 'es', 'ltr'], ['Salut', 'fr', 'ltr'], ['مرحبا', 'ar', 'rtl'], ['Hello', 'en', 'ltr']];
+  var i = 0;
+  setInterval(function () {
+    i = (i + 1) % words.length;
+    el.textContent = words[i][0]; el.lang = words[i][1]; el.dir = words[i][2];
+  }, 1800);
+})();
+</script>
+</body>
+</html>
